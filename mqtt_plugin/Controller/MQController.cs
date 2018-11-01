@@ -78,7 +78,7 @@ namespace mqtt_plugin.Controller
         #region receive event
         void MainFormCloseEvent(EventMessage eventMessage)
         {
-            NexMessageBox.Show("MQTT Plugin test!\n\n", "Testing Close Event", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //NexMessageBox.Show("MQTT Plugin test!\n\n", "Testing Close Event", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion receive event
 
