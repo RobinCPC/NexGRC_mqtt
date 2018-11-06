@@ -88,6 +88,7 @@
             // 
             // timer_mqtt
             // 
+            this.timer_mqtt.Interval = 1000;
             this.timer_mqtt.Tick += new System.EventHandler(this.timer_mqtt_Tick);
             // 
             // MQPage
