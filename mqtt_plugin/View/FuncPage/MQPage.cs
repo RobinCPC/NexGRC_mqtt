@@ -9,118 +9,138 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using NEXCOM.Utility;
+using NEXCOM.Modules.Function;
+
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-using mqtt_plugin.Controller;
 
-namespace mqtt_plugin.View.FuncPage
+
+namespace mqtt_plugin
 {
     public partial class MQPage : NEXCOM.Modules.Function.NexFunctionPage
     {
         private readonly IntMQService mMQService = null;
-
-        public MqttClient myMQClient = null;
-        private string MQTT_BROKER_ADDRESS = "";
-        private int MQTT_TCP_PORT = 0;
-        private string Parent_Topic = "NexCOBOT/MiniBot7R/";
-        private string DurationString = "";
-        
+        private readonly MQModel mMQModel = null;
+        private readonly MiniGRCControl mMiniGRCControl = null;
 
         public MQPage(IntMQService mq_service)
         {
             mMQService = mq_service;
+            mMQModel = mq_service.MQModel;
+            mMiniGRCControl = mq_service.MiniGRCControl;
+
             this.PageName = "MQTT";
+            this.PageCloseEvent += PageClose;
 
             InitializeComponent();
+
+            InitPage();
+
+            this.mqtt_timer.Start();
+        }
+
+        
+        private void InitPage()
+        {
+            textBox_ip.Text = mMQModel.MQTT_ADDRESS;
+            textBox_port.Text = mMQModel.MQTT_PORT.ToString();
+
+            textBox_Rec.DataBindings.Add("Text", mMQModel, "ReciveData");
+
+            mLb_state.Text = "State : " + (mMQModel.IsClientConnect == true ? "Connect" : "Disconnect");
+
+
+            mRb_External.DataBindings.Add("Checked", mMiniGRCControl, "IsExternalMode", false, DataSourceUpdateMode.OnPropertyChanged);
+        }
+     
+        private void PageClose(NexFunctionPage page)
+        {
+            this.mqtt_timer.Stop();
         }
 
         private void btn_mqtt_Click(object sender, EventArgs e)
         {
-            if(myMQClient == null)
+            int port = 0;
+            if(int.TryParse(textBox_port.Text, out port) == false)
             {
-                MQTT_BROKER_ADDRESS = textBox_ip.Text;
-                MQTT_TCP_PORT = Convert.ToInt16(textBox_port.Text);
+                NexMessageBox.Show("Port value is invalid ! \n");
+                return;
+            }
 
-                // Create Client Instance
-                myMQClient = new MqttClient(MQTT_BROKER_ADDRESS);
+            mMQModel.Connent(textBox_ip.Text, port);            
+        }
 
-                // Connect to Broker
-                string clientId = Guid.NewGuid().ToString();
-                byte code = myMQClient.Connect(clientId);
+        private void btn_disconnect_Click(object sender, EventArgs e)
+        {
+            mMQModel.Disconnect();
+        }
 
-                // Start timer to publish data
-                timer_mqtt.Start();
+        private void mqtt_timer_Tick(object sender, EventArgs e)
+        {
+           
+            mLb_Color_index.Text = "Color Index : " + mMiniGRCControl.ExternalColorIndex.ToString();
+            mMiniGRCControl.UpdateColorMessage(mLb_Color_index.Text);
 
-                // event handler to check if message are sent to the broker successfully.
-                myMQClient.MqttMsgPublished += client_MqttMsgPublished;
+            mLb_state.Text = "State : " + (mMQModel.IsClientConnect == true ? "Connect" : "Disconnect");
+            if(mMQModel.ReciveData == "")
+            {
+                return;
+            }
 
-                // event handler to check if receive message
-                myMQClient.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+            //copy
+            textBox_Rec.Text = mMQModel.ReciveData;
+            mMQModel.ReciveData = "";
 
-                // Subscribe to Topic
-                //ushort msgIdrev = myMQClient.Subscribe(new string[] { Parent_Topic + "TotalPowerOnTime" }, 
-                //                                       new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            if(mMiniGRCControl.IsExternalMode == false)
+            {
+                return;
+            }
 
-                //myMQClient.Subscribe(new string[] { Parent_Topic + "JogRatio" }, 
-                //                                       new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            int index = 0;
+            if (int.TryParse(textBox_Rec.Text, out index) == false)
+            {
+                return;
+            }
+
+            string msg = "";
+            mMiniGRCControl.RunScript(index, ref msg);
+          
+        }
+
+        private void mBt_Show_demo_Click(object sender, EventArgs e)
+        {
+            mMiniGRCControl.ShowDemoPanel();
+        }
+
+        private void mRb_manual_CheckedChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void mRb_External_CheckedChanged(object sender, EventArgs e)
+        {
+            if (mRb_External.Checked == true)
+            {
+                mRb_External.ForeColor = System.Drawing.Color.FromArgb(0xfa, 0xfa, 0xfa);
+                mRb_External.BackColor = System.Drawing.Color.FromArgb(0x1b, 0x8a, 0x82);
+
+                mRb_manual.ForeColor = System.Drawing.Color.FromArgb(0x4c, 0x4c, 0x4c);
+                mRb_manual.BackColor = System.Drawing.Color.FromArgb(0xab, 0xd4, 0xcf);
+            }
+            else
+            {
+                mRb_External.ForeColor = System.Drawing.Color.FromArgb(0x4c, 0x4c, 0x4c);
+                mRb_External.BackColor = System.Drawing.Color.FromArgb(0xab, 0xd4, 0xcf);
+
+                mRb_manual.ForeColor = System.Drawing.Color.FromArgb(0xfa, 0xfa, 0xfa);
+                mRb_manual.BackColor = System.Drawing.Color.FromArgb(0x1b, 0x8a, 0x82);
             }
         }
 
-        private void timer_mqtt_Tick(object sender, EventArgs e)
+        private void mBt_reset_color_Click(object sender, EventArgs e)
         {
-            // Update Total Power on Time
-            TimeSpan Duration = DateTime.Now - MQController.mStartTime;
-            DurationString = Duration.Days.ToString() + "Days" + Duration.Hours.ToString() + "Hours" +
-                                    Duration.Minutes.ToString() + "Minutes" + Duration.Seconds.ToString() + "Seconds";
-
-            // publish power-on time
-            ushort msgId = myMQClient.Publish(Parent_Topic + "TotalPowerOnTime", // Topic
-                                              Encoding.UTF8.GetBytes(Duration.ToString()), // message body
-                                              MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, // QoS level
-                                              false); // retained
-
-            // publish jog ratio
-            myMQClient.Publish(Parent_Topic + "JogRatio", // Topic
-                                              Encoding.UTF8.GetBytes(mMQService.DeviceService.GroupObjectList[0].JogRatio.ToString()), // message body
-                                              MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, // QoS level
-                                              false); // retained
-
-            // publish angle (deg) of each joint
-            for (int i = 0; i < 7; ++i)
-            {
-                myMQClient.Publish(Parent_Topic + "Joint" + (i + 1).ToString(), // Topic
-                                                  Encoding.UTF8.GetBytes(mMQService.DeviceService.GroupObjectList[0].GroupStatus.AcsActPos[i].Value.ToString()), // message body
-                                                  MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, // QoS level
-                                                  false); // retained
-            }
-
-            // publish the position & orientation of end-effector
-            string[] coord = { "X", "Y", "Z", "A", "B", "C" };
-            for (int i = 0; i < 6; ++i)
-            {
-                myMQClient.Publish(Parent_Topic + coord[i], // Topic
-                                                  Encoding.UTF8.GetBytes(mMQService.DeviceService.GroupObjectList[0].GroupStatus.McsActPos[i].Value.ToString()), // message body
-                                                  MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, // QoS level
-                                                  false); // retained
-            }
-
-            myMQClient.Publish(Parent_Topic + "State", // Topic
-                                              Encoding.UTF8.GetBytes(mMQService.DeviceService.GroupObjectList[0].GroupStatus.GroupState.ToString()), // message body
-                                              MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, // QoS level
-                                              false); // retained
-
+            mMiniGRCControl.ResetColorIndex();
         }
-
-        void client_MqttMsgPublished(Object sender, MqttMsgPublishedEventArgs e)
-        {
-            //Console.WriteLine("MessageId = " + e.MessageId + " Published = " + e.IsPublished);
-        }
-
-        void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
-        {
-            //Console.WriteLine("Received = " + Encoding.UTF8.GetString(e.Message) + " on topic " + e.Topic);
-        }
-
     }
 }

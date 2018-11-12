@@ -9,7 +9,9 @@ using NEXCOM.Modules.Device;
 using NEXCOM.Modules.Home;
 using NEXCOM.Modules.Function;
 
-namespace mqtt_plugin.Controller
+using MiniGRC;
+
+namespace mqtt_plugin
 {
     public interface IntMQService
     {
@@ -32,5 +34,9 @@ namespace mqtt_plugin.Controller
         /// The interface of DeviceManagerService Object
         /// </summary>
         IDeviceManagerService DeviceService { get; }
+
+        IMiniService MiniService { get; }
+        MQModel MQModel {get;}
+        MiniGRCControl MiniGRCControl { get; }
     }
 }

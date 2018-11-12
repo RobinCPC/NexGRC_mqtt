@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 using NEXCOM.GRC.Framework;
 using NEXCOM.Modules.Home;
 
-using mqtt_plugin.Controller;
-using mqtt_plugin.View.FuncPage;
 
-namespace mqtt_plugin.View.HomeItem
+namespace mqtt_plugin
 {
     public class MQItem : NexHomeItem
     {

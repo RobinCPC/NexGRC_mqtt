@@ -48,12 +48,17 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActiproSoftware.Shared.WinForms, Version=18.1.340.0, Culture=neutral, PublicKeyToken=c27e062d3c1a4763, processorArchitecture=MSIL" />
     <Reference Include="M2Mqtt.Net, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\M2Mqtt.4.3.0.0\lib\net45\M2Mqtt.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NexGRCFramework">
-      <HintPath>..\..\..\NexGRC7R_S_1031\NexGRCFramework.dll</HintPath>
+    <Reference Include="MiniGRC7R">
+      <HintPath>..\..\..\..\GRC_TPUI\trunk\NexGRC\bin\x86\Debug\Plugin\MiniGRC7R.dll</HintPath>
+    </Reference>
+    <Reference Include="NexGRCFramework, Version=1.0.2.119, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\GRC_TPUI\trunk\NexGRC\bin\x86\Debug\NexGRCFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -69,8 +74,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\IntMQService.cs" />
+    <Compile Include="MiniGRC\MiniGRCControl.cs" />
     <Compile Include="Controller\MQController.cs" />
+    <Compile Include="Model\MQModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\DemoPanel\DemoPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\DemoPanel\DemoPanel.Designer.cs">
+      <DependentUpon>DemoPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\FuncPage\MQPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -79,10 +92,11 @@
     </Compile>
     <Compile Include="View\HomeItem\MQItem.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="View\DemoPanel\DemoPanel.resx">
+      <DependentUpon>DemoPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\FuncPage\MQPage.resx">
       <DependentUpon>MQPage.cs</DependentUpon>
     </EmbeddedResource>
