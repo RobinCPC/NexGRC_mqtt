@@ -22,7 +22,7 @@ namespace mqtt_plugin
 
             this.ItemName = "MQTT";
             this.ItemPriority = 8;
-            //this.ItemImage = null;
+            this.ItemImage = global::mqtt_plugin.Properties.Resources.mqtticon_green;
 
             this.ItemClickEvent = MQClickEven;
         }

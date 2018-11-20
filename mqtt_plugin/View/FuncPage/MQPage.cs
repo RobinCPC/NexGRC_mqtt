@@ -14,7 +14,7 @@ using NEXCOM.Modules.Function;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-
+using MiniGRC;
 
 namespace mqtt_plugin
 {
@@ -23,12 +23,16 @@ namespace mqtt_plugin
         private readonly IntMQService mMQService = null;
         private readonly MQModel mMQModel = null;
         private readonly MiniGRCControl mMiniGRCControl = null;
+        private readonly SystemManager mSystemManager = null;
+        private readonly ScriptController mScriptController = null;
 
         public MQPage(IntMQService mq_service)
         {
             mMQService = mq_service;
             mMQModel = mq_service.MQModel;
             mMiniGRCControl = mq_service.MiniGRCControl;
+            mSystemManager = mq_service.MiniService.SystemManager;
+            mScriptController = mq_service.MiniService.ScriptController;
 
             this.PageName = "MQTT";
             this.PageCloseEvent += PageClose;
@@ -104,6 +108,11 @@ namespace mqtt_plugin
             }
 
             string msg = "";
+            if(mSystemManager.SystemState == SysState.running)
+            {
+                mScriptController.ExternalLEDIndex = index;
+                return;
+            }
             mMiniGRCControl.RunScript(index, ref msg);
           
         }

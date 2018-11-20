@@ -54,11 +54,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MiniGRC7R">
-      <HintPath>..\..\..\..\GRC_TPUI\trunk\NexGRC\bin\x86\Debug\Plugin\MiniGRC7R.dll</HintPath>
+      <HintPath>..\..\NexGRC7R_S_1112_x32\Plugin\MiniGRC7R.dll</HintPath>
     </Reference>
     <Reference Include="NexGRCFramework, Version=1.0.2.119, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\GRC_TPUI\trunk\NexGRC\bin\x86\Debug\NexGRCFramework.dll</HintPath>
+      <HintPath>..\..\NexGRC7R_S_1112_x32\NexGRCFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -78,6 +78,11 @@
     <Compile Include="Controller\MQController.cs" />
     <Compile Include="Model\MQModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="View\DemoPanel\DemoPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,8 +97,14 @@
     </Compile>
     <Compile Include="View\HomeItem\MQItem.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\mqtticon-green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\DemoPanel\DemoPanel.resx">
       <DependentUpon>DemoPanel.cs</DependentUpon>
     </EmbeddedResource>
