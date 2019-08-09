@@ -45,6 +45,8 @@
             this.mLb_mode = new System.Windows.Forms.Label();
             this.mBt_reset_color = new System.Windows.Forms.Button();
             this.mLb_Color_index = new System.Windows.Forms.Label();
+            this.mLB_facial = new System.Windows.Forms.Label();
+            this.textBox_facial = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label_ip
@@ -92,10 +94,10 @@
             // btn_mqtt
             // 
             this.btn_mqtt.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_mqtt.Location = new System.Drawing.Point(26, 138);
+            this.btn_mqtt.Location = new System.Drawing.Point(26, 150);
             this.btn_mqtt.Margin = new System.Windows.Forms.Padding(2);
             this.btn_mqtt.Name = "btn_mqtt";
-            this.btn_mqtt.Size = new System.Drawing.Size(163, 40);
+            this.btn_mqtt.Size = new System.Drawing.Size(163, 43);
             this.btn_mqtt.TabIndex = 4;
             this.btn_mqtt.Text = "Connect MQTT";
             this.btn_mqtt.UseVisualStyleBackColor = true;
@@ -104,7 +106,7 @@
             // textBox_Rec
             // 
             this.textBox_Rec.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_Rec.Location = new System.Drawing.Point(26, 264);
+            this.textBox_Rec.Location = new System.Drawing.Point(26, 286);
             this.textBox_Rec.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Rec.Name = "textBox_Rec";
             this.textBox_Rec.Size = new System.Drawing.Size(623, 33);
@@ -114,10 +116,10 @@
             // btn_disconnect
             // 
             this.btn_disconnect.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_disconnect.Location = new System.Drawing.Point(228, 138);
+            this.btn_disconnect.Location = new System.Drawing.Point(228, 150);
             this.btn_disconnect.Margin = new System.Windows.Forms.Padding(2);
             this.btn_disconnect.Name = "btn_disconnect";
-            this.btn_disconnect.Size = new System.Drawing.Size(163, 40);
+            this.btn_disconnect.Size = new System.Drawing.Size(163, 43);
             this.btn_disconnect.TabIndex = 8;
             this.btn_disconnect.Text = "Disconnect";
             this.btn_disconnect.UseVisualStyleBackColor = true;
@@ -132,7 +134,7 @@
             // 
             this.mLb_state.AutoSize = true;
             this.mLb_state.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mLb_state.Location = new System.Drawing.Point(29, 97);
+            this.mLb_state.Location = new System.Drawing.Point(29, 105);
             this.mLb_state.Name = "mLb_state";
             this.mLb_state.Size = new System.Drawing.Size(81, 25);
             this.mLb_state.TabIndex = 9;
@@ -142,7 +144,7 @@
             // 
             this.mLb_recive.AutoSize = true;
             this.mLb_recive.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mLb_recive.Location = new System.Drawing.Point(29, 227);
+            this.mLb_recive.Location = new System.Drawing.Point(29, 246);
             this.mLb_recive.Name = "mLb_recive";
             this.mLb_recive.Size = new System.Drawing.Size(143, 25);
             this.mLb_recive.TabIndex = 10;
@@ -152,10 +154,10 @@
             // 
             this.mBt_Show_demo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.mBt_Show_demo.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mBt_Show_demo.Location = new System.Drawing.Point(578, 495);
+            this.mBt_Show_demo.Location = new System.Drawing.Point(578, 536);
             this.mBt_Show_demo.Margin = new System.Windows.Forms.Padding(2);
             this.mBt_Show_demo.Name = "mBt_Show_demo";
-            this.mBt_Show_demo.Size = new System.Drawing.Size(211, 40);
+            this.mBt_Show_demo.Size = new System.Drawing.Size(211, 43);
             this.mBt_Show_demo.TabIndex = 12;
             this.mBt_Show_demo.Text = "Show Demo Page";
             this.mBt_Show_demo.UseVisualStyleBackColor = true;
@@ -171,9 +173,9 @@
             this.mRb_External.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mRb_External.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mRb_External.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
-            this.mRb_External.Location = new System.Drawing.Point(288, 341);
+            this.mRb_External.Location = new System.Drawing.Point(288, 369);
             this.mRb_External.Name = "mRb_External";
-            this.mRb_External.Size = new System.Drawing.Size(140, 45);
+            this.mRb_External.Size = new System.Drawing.Size(140, 49);
             this.mRb_External.TabIndex = 29;
             this.mRb_External.Text = "External";
             this.mRb_External.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -191,9 +193,9 @@
             this.mRb_manual.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mRb_manual.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mRb_manual.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
-            this.mRb_manual.Location = new System.Drawing.Point(140, 341);
+            this.mRb_manual.Location = new System.Drawing.Point(140, 369);
             this.mRb_manual.Name = "mRb_manual";
-            this.mRb_manual.Size = new System.Drawing.Size(140, 45);
+            this.mRb_manual.Size = new System.Drawing.Size(140, 49);
             this.mRb_manual.TabIndex = 28;
             this.mRb_manual.TabStop = true;
             this.mRb_manual.Text = "Manual";
@@ -205,7 +207,7 @@
             // 
             this.mLb_mode.AutoSize = true;
             this.mLb_mode.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mLb_mode.Location = new System.Drawing.Point(28, 347);
+            this.mLb_mode.Location = new System.Drawing.Point(28, 376);
             this.mLb_mode.Name = "mLb_mode";
             this.mLb_mode.Size = new System.Drawing.Size(106, 33);
             this.mLb_mode.TabIndex = 27;
@@ -214,10 +216,10 @@
             // mBt_reset_color
             // 
             this.mBt_reset_color.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mBt_reset_color.Location = new System.Drawing.Point(26, 482);
+            this.mBt_reset_color.Location = new System.Drawing.Point(26, 522);
             this.mBt_reset_color.Margin = new System.Windows.Forms.Padding(2);
             this.mBt_reset_color.Name = "mBt_reset_color";
-            this.mBt_reset_color.Size = new System.Drawing.Size(211, 40);
+            this.mBt_reset_color.Size = new System.Drawing.Size(211, 43);
             this.mBt_reset_color.TabIndex = 30;
             this.mBt_reset_color.Text = "Reset Color Index";
             this.mBt_reset_color.UseVisualStyleBackColor = true;
@@ -227,16 +229,38 @@
             // 
             this.mLb_Color_index.AutoSize = true;
             this.mLb_Color_index.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mLb_Color_index.Location = new System.Drawing.Point(28, 438);
+            this.mLb_Color_index.Location = new System.Drawing.Point(28, 475);
             this.mLb_Color_index.Name = "mLb_Color_index";
             this.mLb_Color_index.Size = new System.Drawing.Size(178, 33);
             this.mLb_Color_index.TabIndex = 31;
             this.mLb_Color_index.Text = "Color Index : ";
             // 
+            // mLB_facial
+            // 
+            this.mLB_facial.AutoSize = true;
+            this.mLB_facial.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mLB_facial.Location = new System.Drawing.Point(283, 483);
+            this.mLB_facial.Name = "mLB_facial";
+            this.mLB_facial.Size = new System.Drawing.Size(146, 25);
+            this.mLB_facial.TabIndex = 32;
+            this.mLB_facial.Text = "Facial Index : ";
+            // 
+            // textBox_facial
+            // 
+            this.textBox_facial.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_facial.Location = new System.Drawing.Point(288, 522);
+            this.textBox_facial.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_facial.Name = "textBox_facial";
+            this.textBox_facial.Size = new System.Drawing.Size(181, 33);
+            this.textBox_facial.TabIndex = 33;
+            this.textBox_facial.Text = "-1";
+            // 
             // MQPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.textBox_facial);
+            this.Controls.Add(this.mLB_facial);
             this.Controls.Add(this.mLb_Color_index);
             this.Controls.Add(this.mBt_reset_color);
             this.Controls.Add(this.mRb_External);
@@ -254,7 +278,7 @@
             this.Controls.Add(this.label_ip);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MQPage";
-            this.Size = new System.Drawing.Size(807, 551);
+            this.Size = new System.Drawing.Size(807, 597);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,5 +302,7 @@
         private System.Windows.Forms.Label mLb_mode;
         private System.Windows.Forms.Button mBt_reset_color;
         private System.Windows.Forms.Label mLb_Color_index;
+        private System.Windows.Forms.Label mLB_facial;
+        private System.Windows.Forms.TextBox textBox_facial;
     }
 }

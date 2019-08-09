@@ -82,6 +82,36 @@ namespace mqtt_plugin
 
         private void mqtt_timer_Tick(object sender, EventArgs e)
         {
+            // Check if need to change JogRatio (moving speed)
+            if(mMQModel.FacialIndex != "")
+            {
+                //copy Received mqtt messages
+                textBox_facial.Text = mMQModel.FacialIndex;
+                mMQModel.FacialIndex = "";
+
+                int fac_index = -1;
+                if(int.TryParse(textBox_facial.Text, out fac_index) == true)
+                {
+                    switch (fac_index)
+                    {
+                        case 0:
+                            Console.WriteLine("Facial Index is 0, Not Detect!");
+                            mMQService.DeviceService.CurrentGroupObject.JogRatio = 100;
+                            break;
+                        case 1:
+                            Console.WriteLine("Facial Index is 1, Detect Authorized Person");
+                            mMQService.DeviceService.CurrentGroupObject.JogRatio = 0;
+                            break;
+                        case 2:
+                            Console.WriteLine("Facial Index is 2, Detect Unauthorized Person");
+                            mMQService.DeviceService.CurrentGroupObject.JogRatio = 10;
+                            break;
+                        default:
+                            Console.WriteLine("Facial Index is unknown");
+                            break;
+                    }
+                }
+            }
            
             mLb_Color_index.Text = "Color Index : " + mMiniGRCControl.ExternalColorIndex.ToString();
             mMiniGRCControl.UpdateColorMessage(mLb_Color_index.Text);
@@ -92,10 +122,11 @@ namespace mqtt_plugin
                 return;
             }
 
-            //copy
+            //copy Received mqtt messages
             textBox_Rec.Text = mMQModel.ReciveData;
             mMQModel.ReciveData = "";
 
+            // Check if need to run script
             if(mMiniGRCControl.IsExternalMode == false)
             {
                 return;

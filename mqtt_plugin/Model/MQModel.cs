@@ -32,6 +32,7 @@ namespace mqtt_plugin
         public int MQTT_PORT { get; private set; } = 1883;
 
         public string ReciveData { get; set; } = "";
+        public string FacialIndex { get; set; } = "";
 
         public bool IsClientConnect
         {
@@ -89,6 +90,9 @@ namespace mqtt_plugin
             }
 
             ushort msgIdrev = mMQClient.Subscribe(new string[] { Cloud_Topic + "LedColor" },
+                                          new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+
+            ushort msgIdfacial = mMQClient.Subscribe(new string[] { Cloud_Topic + "FacialIndex" },
                                           new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
 
             StartPublishMsg();
@@ -186,7 +190,13 @@ namespace mqtt_plugin
 
         void client_MqttMsgReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            this.ReciveData = Encoding.UTF8.GetString(e.Message);
+            if(e.Topic.Contains("LedColor"))
+            {
+                this.ReciveData = Encoding.UTF8.GetString(e.Message);
+            }else if(e.Topic.Contains("FacialIndex"))
+            {
+                this.FacialIndex = Encoding.UTF8.GetString(e.Message);
+            }
         
             //string rec_str = "Received = " + Encoding.UTF8.GetString(e.Message) + " on topic " + e.Topic;
             //Console.WriteLine("Received = " + Encoding.UTF8.GetString(e.Message) + " on topic " + e.Topic);
